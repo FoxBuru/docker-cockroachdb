@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if [[ -z "${TZ}" ]]; then
+	echo "Timezone not set. Exiting..."
+	exit -1
+fi
+
+if [ ! -e /etc/localtime ] then
+	echo "Setting timezone to ${TZ}" && \
+	cp "/usr/share/zoneinfo/${TZ}" /etc/localtime && \
+	echo "${TZ}" > /etc/localtime
+else
+	echo "Timezone already set to ${TZ}
+fi
+
+/cockroach/cockroach "$@"
